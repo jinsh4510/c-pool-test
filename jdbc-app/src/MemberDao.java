@@ -16,9 +16,9 @@ public class MemberDao {
 		FileInputStream fis = new FileInputStream("d:\\db.properties");
 		Properties pro = new Properties();
 		pro.load(fis);
-		this.url = pro.getProperty("url");
-		this.dbid = pro.getProperty("dbid");
-		this.dbpw = pro.getProperty("dbpw");
+		url = pro.getProperty("url");
+		dbid = pro.getProperty("dbid");
+		dbpw = pro.getProperty("dbpw");
 	}
 	
 	public Member selectMemberById(String id) throws ClassNotFoundException, SQLException, IOException {
@@ -28,7 +28,7 @@ public class MemberDao {
 		System.out.println(this.dbpw);
 		// Properties db정보 가져옵니다(내부적으로 input...
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection conn = DriverManager.getConnection(this.url, this.dbid, this.dbpw);
+		Connection conn = DriverManager.getConnection(url, dbid, dbpw);
 		String sql = "SELECT * FROM oracle_member WHERE ora_id=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, id);
@@ -38,7 +38,7 @@ public class MemberDao {
 			member = new Member();
 			member.setId(rs.getString("ora_id"));
 			member.setName(rs.getString("ora_name"));
-			// ....
+			System.out.println("저장 하자 지우기");// ....
 		}
 		return member;
 	}
